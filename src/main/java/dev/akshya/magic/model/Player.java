@@ -4,7 +4,7 @@ import java.util.Random;
 
 import static dev.akshya.magic.util.Constants.DICE_FACES;
 
-public class Player implements IPlayer{
+public class Player implements IPlayer {
 
     private int health;
     private int strength;
@@ -34,11 +34,6 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public int rollDice() {
-        return new Random().nextInt(DICE_FACES)+1;
-    }
-
-    @Override
     public String name() {
         return name;
     }
@@ -49,8 +44,20 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public void takeDamage(int damage) {
-        this.health = this.health - damage;
+    public void defend(int damage) {
+        int defendMultiplier = this.rollDice();
+        int totalDamageTaken = Math.max((defendMultiplier * strength) - damage, 0);
+        this.health = this.health - totalDamageTaken;
         System.out.printf("Taken damage: %d, remaining health: %d\n", damage, this.health);
     }
+
+    @Override
+    public int attack() {
+        return this.rollDice() * attack;
+    }
+
+    private int rollDice() {
+        return new Random().nextInt(DICE_FACES)+1;
+    }
+
 }

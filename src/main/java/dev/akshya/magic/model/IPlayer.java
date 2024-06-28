@@ -8,11 +8,11 @@ public interface IPlayer {
 
     int strengthAttribute();
 
-    int rollDice();
-
     String name();
 
     boolean isAlive();
 
-    void takeDamage(int damage);
+    void defend(int damage);
+
+    int attack();
 }
