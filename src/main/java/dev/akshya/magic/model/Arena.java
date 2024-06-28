@@ -4,5 +4,5 @@ public interface Arena {
 
     void startGame();
 
-    void endGame();
+    boolean endGame();
 }

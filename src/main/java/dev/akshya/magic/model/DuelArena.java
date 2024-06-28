@@ -2,12 +2,14 @@ package dev.akshya.magic.model;
 
 import java.util.Random;
 
+import static dev.akshya.magic.util.Constants.WINNER_MSG;
+
 public class DuelArena implements Arena {
     private String id;
-    private Player playerA;
-    private Player playerB;
+    private IPlayer playerA;
+    private IPlayer playerB;
 
-    public DuelArena(String id, Player playerA, Player playerB) {
+    public DuelArena(String id, IPlayer playerA, IPlayer playerB) {
         this.playerA = playerA;
         this.playerB = playerB;
         this.id = id;
@@ -18,9 +20,8 @@ public class DuelArena implements Arena {
         IPlayer attacker = new Random().nextInt(2) == 1 ? playerA : playerB;
         IPlayer defender = attacker == playerA ? playerB : playerA;
         while (playerA.isAlive() && playerB.isAlive()) {
-            int attackValue = attacker.rollDice();
-
-            defender.takeDamage(attackValue*attacker.attackAttribute());
+            int attackValue = attacker.attack();
+            defender.defend(attackValue);
             switchRoles(attacker, defender);
         }
         endGame();
@@ -33,12 +34,13 @@ public class DuelArena implements Arena {
     }
 
     @Override
-    public void endGame() {
+    public boolean endGame() {
         if (playerA.isAlive()) {
-            System.out.println("Player A wins!");
+            System.out.println(String.format(WINNER_MSG, playerA.name()));
         } else {
-            System.out.println("Player B wins!");
+            System.out.println(String.format(WINNER_MSG, playerB.name()));
         }
         System.out.println("Game Ends here!");
+        return true;
     }
 }
