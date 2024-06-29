@@ -7,8 +7,8 @@ import dev.akshya.magic.model.Player;
 
 public class MagicalArena {
     public static void main(String[] args) {
-        IPlayer playerA = new Player("A", 20, 2, 2);
-        IPlayer playerB = new Player("B", 20, 1, 3);
+        IPlayer playerA = new Player("A", 50, 5, 10);
+        IPlayer playerB = new Player("B", 100, 10, 5);
         Arena duelArena = new DuelArena("Arena1", playerA, playerB);
         duelArena.startGame();
     }
