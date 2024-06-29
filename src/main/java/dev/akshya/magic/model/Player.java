@@ -46,9 +46,9 @@ public class Player implements IPlayer {
     @Override
     public void defend(int damage) {
         int defendMultiplier = this.rollDice();
-        int totalDamageTaken = Math.max((defendMultiplier * strength) - damage, 0);
+        int totalDamageTaken = Math.max(damage - (defendMultiplier * strength), 0);
         this.health = this.health - totalDamageTaken;
-        System.out.printf("Taken damage: %d, remaining health: %d\n", damage, this.health);
+        System.out.printf("Taken damage: %d, remaining health of %s: %d\n", damage, this.name, Math.max(this.health, 0));
     }
 
     @Override
